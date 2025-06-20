@@ -2,19 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Elegant Countdown Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
   </head>
   <body>
-    <div class="input-group">
-      <input id="hours" placeholder="HH" maxlength="2" />
-      <input id="minutes" placeholder="MM" maxlength="2" />
-      <input id="seconds" placeholder="SS" maxlength="2" />
-      <button id="startBtn">Start</button>
+    <div id="todo-box">
+      <h2>Todo App</h2>
+      <input type="text" id="taskInput" placeholder="Enter task" />
+      <button onclick="addTask()">Add Task</button>
+      <ul id="taskList"></ul>
     </div>
 
-    <div id="display">00:00:00</div>
-
-    <script src="src.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
