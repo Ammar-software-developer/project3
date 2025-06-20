@@ -1,43 +1,45 @@
-let timer;
+function addTask() {
+  const input = document.getElementById("taskInput");
+  const task = input.value.trim();
 
-function startCountdown() {
-    clearInterval(timer);
+  if (task !== "") {
+    const li = document.createElement("li");
 
-    let h = document.getElementById("hours").value;
-    let m = document.getElementById("minutes").value;
-    let s = document.getElementById("seconds").value;
+    const taskText = document.createElement("span");
+    taskText.className = "task-text";
+    taskText.textContent = task;
 
-    h = h ? parseInt(h) : 0;
-    m = m ? parseInt(m) : 0;
-    s = s ? parseInt(s) : 0;
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "btn-group";
 
-    let total = h * 3600 + m * 60 + s;
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.onclick = () => editTask(editBtn);
 
-    function showTime() {
-        let hrs = Math.floor(total / 3600);
-        let mins = Math.floor((total % 3600) / 60);
-        let secs = total % 60;
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.onclick = () => deleteTask(deleteBtn);
 
-        let hh = hrs < 10 ? "0" + hrs : hrs;
-        let mm = mins < 10 ? "0" + mins : mins;
-        let ss = secs < 10 ? "0" + secs : secs;
+    btnContainer.appendChild(editBtn);
+    btnContainer.appendChild(deleteBtn);
 
-        document.getElementById("display").innerHTML = hh + ":" + mm + ":" + ss;
+    li.appendChild(taskText);
+    li.appendChild(btnContainer);
 
-        if (total <= 0) {
-            clearInterval(timer);
-            document.getElementById("display").innerHTML = "TIME'S UP!";
-            document.getElementById("hours").value = 0;
-            document.getElementById("minutes").value = 0;
-            document.getElementById("seconds").value = 0;
-        } else {
-            total = total - 1;
-        }
-    }
-
-    showTime();
-    timer = setInterval(showTime, 1000);
+    document.getElementById("taskList").appendChild(li);
+    input.value = "";
+  }
 }
 
-document.getElementById("startBtn").addEventListener("click", startCountdown);
+function deleteTask(btn) {
+  btn.closest("li").remove();
+}
+
+function editTask(btn) {
+  const li = btn.closest("li");
+  const span = li.querySelector(".task-text");
+  const current = span.textContent;
+  const updated = prompt("Edit task:", current);
+  span.textContent = updated.trim();
+}
 
